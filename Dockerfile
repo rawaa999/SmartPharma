@@ -4,10 +4,9 @@ RUN rm -rf /usr/local/tomcat/webapps/*
 
 COPY SmartPharma.war /usr/local/tomcat/webapps/ROOT.war
 
-RUN cd /usr/local/tomcat/webapps && \
-    jar -xf ROOT.war && \
-    rm ROOT.war && \
-    mv SmartPharma ROOT 2>/dev/null || true
+WORKDIR /usr/local/tomcat/webapps
+
+RUN mkdir ROOT && cd ROOT && jar -xf ../ROOT.war && cd .. && rm ROOT.war
 
 EXPOSE 8080
 
